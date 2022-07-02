@@ -40,7 +40,7 @@ function startGame() {
 
 function handleClick(e) {
 	let cell;
-	const currentClass = oTurn ? O_CLASS : X_CLASS;
+	let currentClass = oTurn ? O_CLASS : X_CLASS;
 	if (currentClass == X_CLASS) {
 		cell = e.target;
 	} else {
@@ -76,17 +76,17 @@ function bestMove() {
 }
 
 let scores = {
-	X: -10,
-	O: 10,
+	X: -1,
+	O: 1,
 	tie: 0,
 };
 
 function minimax(board, depth, isMaximazing) {
 	let availableCells = getAvailableCells();
-	if (checkWin(O_CLASS)) {
-		return scores.O;
-	} else if (checkWin(X_CLASS)) {
+	if (checkWin(X_CLASS)) {
 		return scores.X;
+	} else if (checkWin(O_CLASS)) {
+		return scores.O;
 	} else if (availableCells.length === 0) {
 		return scores.tie;
 	}
@@ -96,8 +96,8 @@ function minimax(board, depth, isMaximazing) {
 			const cell = availableCells[i];
 			cell.classList.add(O_CLASS);
 			const cellScore = minimax(cell, depth + 1, false);
-			bestScore = Math.max(bestScore, cellScore);
 			cell.classList.remove(O_CLASS);
+			bestScore = Math.max(bestScore, cellScore);
 		}
 		return bestScore;
 	} else {
@@ -106,8 +106,8 @@ function minimax(board, depth, isMaximazing) {
 			const cell = availableCells[i];
 			cell.classList.add(X_CLASS);
 			const cellScore = minimax(cell, depth + 1, true);
-			bestScore = Math.min(bestScore, cellScore);
 			cell.classList.remove(X_CLASS);
+			bestScore = Math.min(bestScore, cellScore);
 		}
 		return bestScore;
 	}
