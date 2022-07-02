@@ -126,14 +126,6 @@ function getAvailableCells() {
 	return availableCells;
 }
 
-// Function to get computer move
-function iaMove() {
-	let availableCells = getAvailableCells();
-	console.log(availableCells);
-	let randomIndex = Math.floor(Math.random() * availableCells.length);
-	return availableCells[randomIndex];
-}
-
 function endGame(draw) {
 	if (draw) {
 		winningMessageTextElement.innerText = "Draw!";
